@@ -14,7 +14,7 @@ def curso(self):
     return HttpResponse(documento)
 
 def inicio(request):
-    return render(request, 'index.html')
+    return render(request, 'inicio.html')
 
 def cursos(request):
     return render(request, 'cursos.html')
