@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from appCoder.forms import CursoFormulario
 from appCoder.models import Curso
-from django.template import loader
 
 # Create your views here.
 
@@ -27,3 +27,16 @@ def estudiantes(request):
 
 def entregables(request):
     return render(request, 'entregables.html')
+
+def cursoFormulario(request):
+    if request.method == 'POST':
+        myForm = CursoFormulario(request.POST)
+        print(myForm)
+        if myForm.is_valid():
+            informacion = myForm.cleaned_data
+            curso = Curso( nombre=informacion['nombre'], camada=informacion['camada'])
+            curso.save()
+            return render(request, 'inicio.html')
+    else:
+        myForm = CursoFormulario()
+    return render(request, 'cursoFormulario.html', {'myForm': myForm})
